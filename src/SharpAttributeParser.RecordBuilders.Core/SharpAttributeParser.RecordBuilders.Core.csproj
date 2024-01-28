@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>SharpAttributeParser</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Title>SharpAttributeParser.RecordBuilders.Core</Title>
+        <Description>
+            Adds record-builders to 'SharpAttributeParser'.
+        </Description>
+    </PropertyGroup>
+
+</Project>
