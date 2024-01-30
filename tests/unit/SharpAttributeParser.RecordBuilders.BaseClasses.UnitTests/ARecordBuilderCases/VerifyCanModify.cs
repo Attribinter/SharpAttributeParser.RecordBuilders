@@ -8,12 +8,14 @@ using Xunit;
 
 public sealed class VerifyCanModify
 {
+    private static void Target(RecordBuilder recordBuilder) => recordBuilder.InvokeTarget();
+
     [Fact]
     public void Unbuilt_NoException()
     {
         RecordBuilder recordBuilder = new();
 
-        var exception = Record.Exception(recordBuilder.InvokeVerifyCanModify);
+        var exception = Record.Exception(() => Target(recordBuilder));
 
         Assert.Null(exception);
     }
@@ -25,14 +27,16 @@ public sealed class VerifyCanModify
 
         ((IRecordBuilder<object>)recordBuilder).Build();
 
-        var exception = Record.Exception(recordBuilder.InvokeVerifyCanModify);
+        var exception = Record.Exception(() => Target(recordBuilder));
 
         Assert.IsType<InvalidOperationException>(exception);
     }
 
     private sealed class RecordBuilder : ARecordBuilder<object>
     {
-        public void InvokeVerifyCanModify() => VerifyCanModify();
+        public RecordBuilder() : base(true) { }
+
+        public void InvokeTarget() => VerifyCanModify();
 
         protected override object GetRecord() => Mock.Of<object>();
     }

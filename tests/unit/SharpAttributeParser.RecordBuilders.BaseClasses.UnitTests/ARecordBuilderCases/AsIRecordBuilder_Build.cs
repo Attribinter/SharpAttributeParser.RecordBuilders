@@ -6,9 +6,9 @@ using System;
 
 using Xunit;
 
-public sealed class Build
+public sealed class AsIRecordBuilder_Build
 {
-    private static TRecord Target<TRecord>(ARecordBuilder<TRecord> recordBuilder) => ((IRecordBuilder<TRecord>)recordBuilder).Build();
+    private static TRecord Target<TRecord>(IRecordBuilder<TRecord> recordBuilder) => recordBuilder.Build();
 
     [Fact]
     public void NullReturningGetTarget_InvalidOperationException()
@@ -59,15 +59,15 @@ public sealed class Build
     private sealed class RecordBuilder : ARecordBuilder<object>
     {
         private readonly object? BuildTarget;
-        private readonly bool CheckFullyConstructedReturnValue;
+        private readonly bool CanBuildReturnValue;
 
-        public RecordBuilder(object? buildTarget, bool throwOnMultipleBuilds, bool checkFullyConstructedReturnValue) : base(throwOnMultipleBuilds)
+        public RecordBuilder(object? buildTarget, bool throwOnMultipleBuilds, bool canBuildReturnValue) : base(throwOnMultipleBuilds)
         {
             BuildTarget = buildTarget;
-            CheckFullyConstructedReturnValue = checkFullyConstructedReturnValue;
+            CanBuildReturnValue = canBuildReturnValue;
         }
 
         protected override object GetRecord() => BuildTarget!;
-        protected override bool CanBuildRecord() => CheckFullyConstructedReturnValue;
+        protected override bool CanBuild() => CanBuildReturnValue;
     }
 }
