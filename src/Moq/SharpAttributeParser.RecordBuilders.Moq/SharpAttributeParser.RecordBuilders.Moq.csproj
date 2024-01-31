@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>SharpAttributeParser.Moq</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Title>SharpAttributeParser.RecordBuilders.Moq</Title>
+        <Description>
+            Simplifies the creation of Moq-mocks of the types provided by 'SharpAttributeParser.RecordBuilders'.
+        </Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Moq" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\SharpAttributeParser.RecordBuilders.Core\SharpAttributeParser.RecordBuilders.Core.csproj" />
+    </ItemGroup>
+
+</Project>
