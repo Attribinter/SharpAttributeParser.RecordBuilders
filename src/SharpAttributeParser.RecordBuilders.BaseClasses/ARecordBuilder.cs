@@ -10,9 +10,11 @@ public abstract class ARecordBuilder<TRecord> : IRecordBuilder<TRecord>
 
     private readonly bool ThrowOnMultipleBuilds;
 
+    private bool CannotBuildDueToAlreadyBuilt => HasBeenBuilt && ThrowOnMultipleBuilds;
+
     /// <summary>Instantiates a <see cref="ARecordBuilder{TRecord}"/>, reponsible for building attribute records.</summary>
     /// <param name="throwOnMultipleBuilds">Indicates whether an <see cref="InvalidOperationException"/> should be thrown if the attribute record is built more than once.</param>
-    protected ARecordBuilder(bool throwOnMultipleBuilds = false)
+    protected ARecordBuilder(bool throwOnMultipleBuilds)
     {
         ThrowOnMultipleBuilds = throwOnMultipleBuilds;
     }
@@ -24,9 +26,9 @@ public abstract class ARecordBuilder<TRecord> : IRecordBuilder<TRecord>
             throw new InvalidOperationException($"The attribute record has already been built.");
         }
 
-        if (CanBuildRecord() is false)
+        if (CanBuild() is false)
         {
-            var reason = CannotBuildRecordReason() ?? throw new InvalidOperationException("The reason for not being able to build the attribute record was unexpectedly null.");
+            var reason = BaseCannotBuildReason() ?? throw new InvalidOperationException("The reason for not being able to build the attribute record was unexpectedly null.");
 
             throw new InvalidOperationException(reason);
         }
@@ -42,11 +44,11 @@ public abstract class ARecordBuilder<TRecord> : IRecordBuilder<TRecord>
 
     /// <summary>Checks whether the attribute record can be built in the current state.</summary>
     /// <returns>A <see cref="bool"/> indicating whether the attribute record can be built.</returns>
-    protected virtual bool CanBuildRecord() => true;
+    protected virtual bool CanBuild() => CannotBuildDueToAlreadyBuilt is false;
 
     /// <summary>Retrieves a <see cref="string"/> describing the reason the attribute record cannot be built.</summary>
     /// <returns>A <see cref="string"/> describing the reason the attribute record cannot be built.</returns>
-    protected virtual string CannotBuildRecordReason() => "Cannot build the attribute record, due to the current state of the record.";
+    protected virtual string CannotBuildReason() => "Cannot build the attribute record, due to the current state of the record.";
 
     /// <summary>Determines whether the attribute record may be further modified.</summary>
     /// <returns>A <see cref="bool"/> indicating whether the attribute record may be further modified.</returns>
@@ -57,7 +59,17 @@ public abstract class ARecordBuilder<TRecord> : IRecordBuilder<TRecord>
     {
         if (CanModify() is false)
         {
-            throw new InvalidOperationException($"The attribute record has already been built, and may not be modified.");
+            throw new InvalidOperationException($"Cannot modify the attribute record, as it has already been built.");
         }
+    }
+
+    private string BaseCannotBuildReason()
+    {
+        if (CannotBuildDueToAlreadyBuilt)
+        {
+            return "Cannot build the attribute record, as it has already been built.";
+        }
+
+        return CannotBuildReason();
     }
 }

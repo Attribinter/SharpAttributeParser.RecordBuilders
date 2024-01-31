@@ -4,7 +4,7 @@ using Moq;
 
 using Xunit;
 
-public sealed class CanModify
+public sealed class CanBuild
 {
     private static bool Target(RecordBuilder recordBuilder) => recordBuilder.InvokeTarget();
 
@@ -19,7 +19,19 @@ public sealed class CanModify
     }
 
     [Fact]
-    public void Built_False()
+    public void Built_DontThrowOnMultipleBuilds_True()
+    {
+        RecordBuilder recordBuilder = new(false);
+
+        ((IRecordBuilder<object>)recordBuilder).Build();
+
+        var result = Target(recordBuilder);
+
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void Built_ThrowOnMultipleBuilds_False()
     {
         RecordBuilder recordBuilder = new();
 
@@ -32,9 +44,9 @@ public sealed class CanModify
 
     private sealed class RecordBuilder : ARecordBuilder<object>
     {
-        public RecordBuilder() : base(true) { }
+        public RecordBuilder(bool throwOnMultipleBuilds = true) : base(throwOnMultipleBuilds) { }
 
-        public bool InvokeTarget() => CanModify();
+        public bool InvokeTarget() => CanBuild();
 
         protected override object GetRecord() => Mock.Of<object>();
     }

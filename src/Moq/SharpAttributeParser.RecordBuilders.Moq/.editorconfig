@@ -1,7 +1,0 @@
-[*.cs]
-
-# Identifiers should not match keywords
-dotnet_diagnostic.CA1716.severity = none
-
-# Identifiers should not contain type names
-dotnet_diagnostic.CA1720.severity = none
