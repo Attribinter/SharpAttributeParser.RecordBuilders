@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
 		src\Directory.Build.props = src\Directory.Build.props
+		src\Moq\Directory.Build.props = src\Moq\Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
@@ -16,6 +17,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpAttributeParser.RecordBuilders.BaseClasses.UnitTests", "tests\unit\SharpAttributeParser.RecordBuilders.BaseClasses.UnitTests\SharpAttributeParser.RecordBuilders.BaseClasses.UnitTests.csproj", "{1F829318-C467-4105-9CC6-4DABEFAB824A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpAttributeParser.RecordBuilders.BaseClasses", "src\SharpAttributeParser.RecordBuilders.BaseClasses\SharpAttributeParser.RecordBuilders.BaseClasses.csproj", "{4643FF3C-D2D0-42A7-A6FD-68F6BFD6D781}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpAttributeParser.RecordBuilders.Moq", "src\Moq\SharpAttributeParser.RecordBuilders.Moq\SharpAttributeParser.RecordBuilders.Moq.csproj", "{55D89FC9-0985-462D-97E0-B41204678A9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +38,10 @@ Global
 		{4643FF3C-D2D0-42A7-A6FD-68F6BFD6D781}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4643FF3C-D2D0-42A7-A6FD-68F6BFD6D781}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4643FF3C-D2D0-42A7-A6FD-68F6BFD6D781}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55D89FC9-0985-462D-97E0-B41204678A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D89FC9-0985-462D-97E0-B41204678A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D89FC9-0985-462D-97E0-B41204678A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D89FC9-0985-462D-97E0-B41204678A9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
