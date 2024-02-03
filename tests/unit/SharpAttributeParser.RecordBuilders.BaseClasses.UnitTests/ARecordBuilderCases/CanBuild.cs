@@ -11,7 +11,7 @@ public sealed class CanBuild
     [Fact]
     public void Unbuilt_True()
     {
-        RecordBuilder recordBuilder = new();
+        RecordBuilder recordBuilder = new(true);
 
         var result = Target(recordBuilder);
 
@@ -33,7 +33,7 @@ public sealed class CanBuild
     [Fact]
     public void Built_ThrowOnMultipleBuilds_False()
     {
-        RecordBuilder recordBuilder = new();
+        RecordBuilder recordBuilder = new(true);
 
         ((IRecordBuilder<object>)recordBuilder).Build();
 
@@ -44,7 +44,7 @@ public sealed class CanBuild
 
     private sealed class RecordBuilder : ARecordBuilder<object>
     {
-        public RecordBuilder(bool throwOnMultipleBuilds = true) : base(throwOnMultipleBuilds) { }
+        public RecordBuilder(bool throwOnMultipleBuilds) : base(throwOnMultipleBuilds) { }
 
         public bool InvokeTarget() => CanBuild();
 

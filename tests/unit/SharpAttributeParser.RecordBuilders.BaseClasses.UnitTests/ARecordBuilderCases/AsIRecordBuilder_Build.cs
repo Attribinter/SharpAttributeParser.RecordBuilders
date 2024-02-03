@@ -13,7 +13,7 @@ public sealed class AsIRecordBuilder_Build
     [Fact]
     public void NullReturningGetTarget_InvalidOperationException()
     {
-        RecordBuilder recordBuilder = new(null, false, true);
+        RecordBuilder recordBuilder = new(null, false, true, string.Empty);
 
         var exception = Record.Exception(() => Target(recordBuilder));
 
@@ -23,7 +23,7 @@ public sealed class AsIRecordBuilder_Build
     [Fact]
     public void FalseReturningCheckFullyConstructed_InvalidOperationException()
     {
-        RecordBuilder recordBuilder = new(Mock.Of<object>(), false, false);
+        RecordBuilder recordBuilder = new(Mock.Of<object>(), false, false, string.Empty);
 
         var exception = Record.Exception(() => Target(recordBuilder));
 
@@ -33,7 +33,7 @@ public sealed class AsIRecordBuilder_Build
     [Fact]
     public void MultipleInvokationsOfBuild_ThrowOnMultipleBuildsEnabled_InvalidOperationExceptionOnSecondInvokation()
     {
-        RecordBuilder recordBuilder = new(Mock.Of<object>(), true, true);
+        RecordBuilder recordBuilder = new(Mock.Of<object>(), true, true, string.Empty);
 
         ((IRecordBuilder<object>)recordBuilder).Build();
 
@@ -47,7 +47,7 @@ public sealed class AsIRecordBuilder_Build
     {
         var buildTarget = Mock.Of<object>();
 
-        RecordBuilder recordBuilder = new(buildTarget, false, true);
+        RecordBuilder recordBuilder = new(buildTarget, false, true, string.Empty);
 
         var firstBuildResult = ((IRecordBuilder<object>)recordBuilder).Build();
         var secondBuildResult = ((IRecordBuilder<object>)recordBuilder).Build();
@@ -56,18 +56,31 @@ public sealed class AsIRecordBuilder_Build
         Assert.Same(buildTarget, secondBuildResult);
     }
 
+    [Fact]
+    public void FalseCanBuild_NullCannotBuildReason_InvalidOperationException()
+    {
+        RecordBuilder recordBuilder = new(Mock.Of<object>(), false, false, null);
+
+        var exception = Record.Exception(() => Target(recordBuilder));
+
+        Assert.IsType<InvalidOperationException>(exception);
+    }
+
     private sealed class RecordBuilder : ARecordBuilder<object>
     {
         private readonly object? BuildTarget;
         private readonly bool CanBuildReturnValue;
+        private readonly string? CannotBuildReasonReturnValue;
 
-        public RecordBuilder(object? buildTarget, bool throwOnMultipleBuilds, bool canBuildReturnValue) : base(throwOnMultipleBuilds)
+        public RecordBuilder(object? buildTarget, bool throwOnMultipleBuilds, bool canBuildReturnValue, string? cannotBuildReasonReturnValue) : base(throwOnMultipleBuilds)
         {
             BuildTarget = buildTarget;
             CanBuildReturnValue = canBuildReturnValue;
+            CannotBuildReasonReturnValue = cannotBuildReasonReturnValue;
         }
 
         protected override object GetRecord() => BuildTarget!;
         protected override bool CanBuild() => CanBuildReturnValue;
+        protected override string CannotBuildReason() => CannotBuildReasonReturnValue!;
     }
 }
