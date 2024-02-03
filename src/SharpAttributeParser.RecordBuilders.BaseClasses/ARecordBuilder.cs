@@ -21,14 +21,14 @@ public abstract class ARecordBuilder<TRecord> : IRecordBuilder<TRecord>
 
     TRecord IRecordBuilder<TRecord>.Build()
     {
-        if (HasBeenBuilt && ThrowOnMultipleBuilds)
+        if (CannotBuildDueToAlreadyBuilt)
         {
-            throw new InvalidOperationException($"The attribute record has already been built.");
+            throw new InvalidOperationException($"Cannot build the attribute record, as it has already been built.");
         }
 
         if (CanBuild() is false)
         {
-            var reason = BaseCannotBuildReason() ?? throw new InvalidOperationException("The reason for not being able to build the attribute record was unexpectedly null.");
+            var reason = CannotBuildReason() ?? throw new InvalidOperationException("The reason for not being able to build the attribute record was unexpectedly null.");
 
             throw new InvalidOperationException(reason);
         }
@@ -61,15 +61,5 @@ public abstract class ARecordBuilder<TRecord> : IRecordBuilder<TRecord>
         {
             throw new InvalidOperationException($"Cannot modify the attribute record, as it has already been built.");
         }
-    }
-
-    private string BaseCannotBuildReason()
-    {
-        if (CannotBuildDueToAlreadyBuilt)
-        {
-            return "Cannot build the attribute record, as it has already been built.";
-        }
-
-        return CannotBuildReason();
     }
 }
