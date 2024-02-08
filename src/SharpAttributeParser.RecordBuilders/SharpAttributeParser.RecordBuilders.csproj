@@ -2,17 +2,18 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <RootNamespace>SharpAttributeParser</RootNamespace>
+        <RootNamespace>SharpAttributeParser.RecordBuilders</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup>
-        <Title>SharpAttributeParser.RecordBuilders.BaseClasses</Title>
+        <Title>SharpAttributeParser.RecordBuilders</Title>
         <Description>
-            Provides abstract base-classes that simplify creation of 'SharpAttributeParser' record-builders.
+            Adds record-builders to 'SharpAttributeParser'.
         </Description>
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\SharpAttributeParser.RecordBuilders.Abstractions\SharpAttributeParser.RecordBuilders.Abstractions.csproj" />
         <ProjectReference Include="..\SharpAttributeParser.RecordBuilders.Core\SharpAttributeParser.RecordBuilders.Core.csproj" />
     </ItemGroup>
 

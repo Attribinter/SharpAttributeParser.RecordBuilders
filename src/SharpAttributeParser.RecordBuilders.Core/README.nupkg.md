@@ -1,5 +1,5 @@
 # SharpAttributeParser.RecordBuilders.Core
 
-Adds record-builders to `SharpAttributeParser`.
+Provides the core definitions of `SharpAttributeParser` record-builders.
 
 See [GitHub](https://github.com/SharpAttributeParser/SharpAttributeParser.RecordBuilders) for more information.

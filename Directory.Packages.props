@@ -3,8 +3,10 @@
     <PropertyGroup>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     </PropertyGroup>
-    
+
     <ItemGroup>
+        <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     </ItemGroup>
 
@@ -13,6 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageVersion Include="SharpAttributeParser.Common.Tests" Version="6.1.0" />
+        <PackageVersion Include="SharpAttributeParser.Core" Version="9.0.0-alpha.3" />
         <PackageVersion Include="SharpAttributeParser.Logo" Version="1.0.1" />
     </ItemGroup>
     
