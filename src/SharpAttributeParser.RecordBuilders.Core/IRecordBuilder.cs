@@ -1,4 +1,4 @@
-﻿namespace SharpAttributeParser;
+﻿namespace SharpAttributeParser.RecordBuilders;
 
 /// <summary>Responsible for building attribute records.</summary>
 /// <typeparam name="TRecord">The type of the built attribute record.</typeparam>

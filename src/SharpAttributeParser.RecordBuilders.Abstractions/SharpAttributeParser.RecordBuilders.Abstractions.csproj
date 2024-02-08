@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>SharpAttributeParser.RecordBuilders</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Title>SharpAttributeParser.RecordBuilders.Abstractions</Title>
+        <Description>
+            Provides abstractions related to 'SharpAttributeParser' record-builders.
+        </Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="SharpAttributeParser.Core" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SharpAttributeParser.RecordBuilders.Core\SharpAttributeParser.RecordBuilders.Core.csproj" />
+    </ItemGroup>
+
+</Project>
